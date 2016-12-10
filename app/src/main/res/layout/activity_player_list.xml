@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.NewPlayerActivity"
+    tools:context="com.karenfreemansmith.githubchallenge.ui.PlayerListActivity"
     android:background="#000000">
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Player Sign Up!"
+        android:text="Select A Player"
         android:textColor="@color/colorSecondaryText"
         android:textSize="36sp"
         android:textAlignment="center"
@@ -19,20 +19,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Existing Player - Login"
-        android:id="@+id/buttonLogin"
+        android:text="View Details"
+        android:id="@+id/buttonPlayerDetails"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorTextIcons"
-        android:textSize="20sp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create New Player"
-        android:id="@+id/buttonNewPlayer"
-        android:layout_above="@+id/buttonLogin"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorTextIcons"

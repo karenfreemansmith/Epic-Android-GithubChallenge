@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.NewPlayerActivity"
+    tools:context="com.karenfreemansmith.githubchallenge.ui.BattleResultsActivity"
     android:background="#000000">
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Player Sign Up!"
+        android:text="Battle Results!"
         android:textColor="@color/colorSecondaryText"
         android:textSize="36sp"
         android:textAlignment="center"
@@ -19,9 +19,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Existing Player - Login"
-        android:id="@+id/buttonLogin"
-        android:layout_alignParentBottom="true"
+        android:text="Play Again"
+        android:id="@+id/buttonPlayAgain"
+        android:layout_above="@+id/buttonLogout"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorTextIcons"
@@ -30,9 +30,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create New Player"
-        android:id="@+id/buttonNewPlayer"
-        android:layout_above="@+id/buttonLogin"
+        android:text="Logout"
+        android:id="@+id/buttonLogout"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorTextIcons"
