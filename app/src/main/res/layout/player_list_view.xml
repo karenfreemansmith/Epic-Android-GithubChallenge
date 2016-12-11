@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
+
+        <ImageView
+            app:srcCompat="@drawable/leroi"
+            android:id="@+id/playerAvatarImageView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_width="75dp"
+            android:layout_height="75dp"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="1">
+
+            <TextView
+                android:text="Player Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/playerNameText"
+                android:layout_alignLeft="@+id/githubButton"
+                android:layout_alignStart="@+id/githubButton"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:text="View Github"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/githubButton"
+                    android:layout_below="@+id/playerNameText"
+                    android:layout_toRightOf="@+id/playerAvatarImageView"
+                    android:layout_toEndOf="@+id/playerAvatarImageView"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:text="Select Player"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addPlayerButton"
+                    android:layout_toRightOf="@+id/playerAvatarImageView"
+                    android:layout_toEndOf="@+id/playerAvatarImageView"
+                    android:layout_below="@+id/githubButton"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
