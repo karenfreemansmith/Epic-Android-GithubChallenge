@@ -22,6 +22,18 @@
         android:layout_height="wrap_content"
         android:text="Find Player on Github"
         android:id="@+id/buttonGithubSearch"
+        android:layout_above="@+id/buttonSelectPlayer"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorTextIcons"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Current Player"
+        android:id="@+id/buttonSelectPlayer"
         android:layout_above="@+id/buttonFollowers"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimary"
@@ -79,4 +91,5 @@
         android:textColorHint="@color/colorDivider"
         android:textColorHighlight="@color/colorPrimaryText"
         android:textAlignment="center" />
+
 </RelativeLayout>

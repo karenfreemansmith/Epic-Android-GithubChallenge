@@ -44,8 +44,8 @@ public class GithubService {
                 for(int i=0; i<playersJSON.length(); i++) {
                     JSONObject playerJSON = playersJSON.getJSONObject(i);
                     String playerName = playerJSON.getString("login");
-//                    String playerAvatar = playerJSON.getString("avatar_url");
-                    Player player = new Player(playerName);
+                    int playerID = playerJSON.getInt("id");
+                    Player player = new Player(playerName, playerID);
                     players.add(player);
                 }
             }

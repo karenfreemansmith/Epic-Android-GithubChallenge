@@ -68,8 +68,8 @@ public class PlayerListActivity extends AppCompatActivity {
                 PlayerListActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //mAdapter = new PlayerListAdapter(getApplicationContext(), mPlayers);
-                        //mPlayerListView.setAdapter(mAdapter);
+                        mAdapter = new PlayerListAdapter(getApplicationContext(), mPlayers);
+                        mPlayerListView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PlayerListActivity.this);
                         mPlayerListView.setLayoutManager(layoutManager);
                         mPlayerListView.setHasFixedSize(true);

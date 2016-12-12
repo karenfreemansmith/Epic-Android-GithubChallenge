@@ -35,7 +35,7 @@
                 android:layout_alignStart="@+id/githubButton"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                />
+                android:textColor="@color/colorDivider" />
 
             <LinearLayout
                 android:orientation="horizontal"

@@ -16,8 +16,11 @@ public class Player {
     private boolean mPlayerBio;
     private boolean mPlayerLocation;
 
-    public Player(String name) {
+
+
+    public Player(String name, int id) {
         mPlayerName = name;
+        mPlayerId = id;
     }
 
     public String getPlayerName() {

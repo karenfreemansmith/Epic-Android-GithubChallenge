@@ -1,6 +1,8 @@
 package com.karenfreemansmith.githubchallenge.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
 
 import butterknife.Bind;
@@ -25,6 +28,9 @@ public class NewPlayerActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
 
     @Bind(R.id.nameEditText) EditText mNameEditText;
     @Bind(R.id.emailEditText) EditText mEmailEditText;
@@ -38,6 +44,8 @@ public class NewPlayerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
         createAuthStateListener();
     }
@@ -95,6 +103,8 @@ public class NewPlayerActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null) {
+                    String username = mNameEditText.getText().toString().trim();
+                    addToSharedPreferences(username);
                     Intent intent = new Intent(NewPlayerActivity.this, BattleActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -102,5 +112,9 @@ public class NewPlayerActivity extends AppCompatActivity {
                 }
             }
         };
+    }
+
+    private void addToSharedPreferences(String username) {
+        mEditor.putString(Constants.LOGGED_IN_PLAYER_KEY, username).apply();
     }
 }
