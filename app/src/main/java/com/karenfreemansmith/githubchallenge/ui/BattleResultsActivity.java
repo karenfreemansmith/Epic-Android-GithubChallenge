@@ -18,6 +18,14 @@ public class BattleResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle_results);
         ButterKnife.bind(this);
+
+        // TODO: get both players from github with all info
+        // TODO: add repos, gists, followers & following
+        // TODO: count if true... bio, location, email, company, blog
+        // TODO: multiply first number by second number for total score
+
+        // TODO: show data for "winner"
+        // TODO: (optional: alternate view for loser?)
     }
 
     @OnClick(R.id.buttonPlayAgain)
