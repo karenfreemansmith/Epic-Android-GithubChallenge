@@ -3,6 +3,7 @@ package com.karenfreemansmith.githubchallenge.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
 import com.karenfreemansmith.githubchallenge.adapter.PlayerListAdapter;
@@ -34,6 +36,8 @@ import okhttp3.Response;
 public class BattleActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private String mCurrentPlayer;
     private String mPlayer1Choice;
@@ -41,6 +45,7 @@ public class BattleActivity extends AppCompatActivity {
     private String mPlayer1Id;
     private String mPlayer2Id;
 
+    @Bind(R.id.titleTextView) TextView mTitle;
     @Bind(R.id.player1Textview) TextView mPlayerName1;
     @Bind(R.id.player2TextView) TextView mPlayerName2;
     @Bind(R.id.player1ImageView) ImageView mPlayer1ImageView;
@@ -52,6 +57,18 @@ public class BattleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_battle);
         ButterKnife.bind(this);
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null) {
+                    mTitle.setText("Welcome " + user.getDisplayName() + ", \nPick your Champions!");
+                } else {
+                    mTitle.setText("Let's Battle, \nPick your Champions!");
+                }
+            }
+        };
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
         GithubService github = new GithubService();
@@ -81,6 +98,20 @@ public class BattleActivity extends AppCompatActivity {
                     .into(mPlayer2ImageView);
         } else {
             mPlayerName2.setText(mCurrentPlayer);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthStateListener != null) {
+            mAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
 
