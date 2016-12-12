@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.support.v7.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
@@ -31,7 +32,6 @@ public class SearchActivity extends AppCompatActivity {
     private String mCurrentPlayer;
     private String mPlayerPosition;
 
-    @Bind(R.id.editSearchGithubPlayer) EditText mGithubName;
     @Bind(R.id.titleTextView) TextView mTitle;
 
     @Override
@@ -40,15 +40,14 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        mPlayerPosition = intent.getStringExtra("playerPosition");
-
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mCurrentPlayer = mSharedPreferences.getString(Constants.LOGGED_IN_PLAYER_KEY, null);
-        if(mCurrentPlayer != null) {
+        mPlayerPosition = mSharedPreferences.getString(Constants.PLAYER_POSITION, null);
+        if(mPlayerPosition.equals("1")) {
+            mCurrentPlayer = mSharedPreferences.getString(Constants.PLAYER1_KEY, null);
             mTitle.setText(mCurrentPlayer);
         } else {
-            mCurrentPlayer="karenfreemansmith";
+            mCurrentPlayer = mSharedPreferences.getString(Constants.PLAYER2_KEY, null);
+            mTitle.setText(mCurrentPlayer);
         }
     }
 
@@ -69,12 +68,10 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 mCurrentPlayer = s;
-                if(mCurrentPlayer != null) {
-                    mTitle.setText(mCurrentPlayer);
-                } else {
+                if(mCurrentPlayer == null) {
                     mCurrentPlayer="karenfreemansmith";
                 }
-
+                mTitle.setText(mCurrentPlayer);
                 return false;
             }
 
@@ -94,39 +91,21 @@ public class SearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonGithubSearch)
     public void showPlayer(View v) {
-        String searchPlayerName;
-        if(mGithubName.getText().toString().equals("")) {
-            searchPlayerName = mCurrentPlayer;
-        } else {
-            searchPlayerName = mGithubName.getText().toString().trim();
-        }
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/" + searchPlayerName));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/" + mCurrentPlayer));
         startActivity(webIntent);
     }
 
     @OnClick(R.id.buttonSelectPlayer)
     public void pickPlayer(View v) {
         Intent intent = new Intent(SearchActivity.this, BattleActivity.class);
-        String searchPlayerName;
-        if(mGithubName.getText().toString().equals("")) {
-            searchPlayerName = mCurrentPlayer;
-        } else {
-            searchPlayerName = mGithubName.getText().toString().trim();
-        }
-        Log.d("add player", searchPlayerName);
-        Log.d("player position", mPlayerPosition);
-        addPlayer(searchPlayerName, mPlayerPosition);
+        addPlayer(mCurrentPlayer, mPlayerPosition);
         startActivity(intent);
     }
 
     @OnClick(R.id.buttonFollowers)
     public void listFollowers(View v) {
         Intent intent = new Intent(SearchActivity.this, PlayerListActivity.class);
-        if(mGithubName.getText().toString().equals("")) {
-            intent.putExtra("playername", mCurrentPlayer);
-        } else {
-            intent.putExtra("playername", mGithubName.getText().toString());
-        }
+        intent.putExtra("playername", mCurrentPlayer);
         intent.putExtra("type", "followers");
         startActivity(intent);
     }
@@ -134,11 +113,7 @@ public class SearchActivity extends AppCompatActivity {
     @OnClick(R.id.buttonFollowing)
     public void listFollowing(View v) {
         Intent intent = new Intent(SearchActivity.this, PlayerListActivity.class);
-        if(mGithubName.getText().toString().equals("")) {
-            intent.putExtra("playername", mCurrentPlayer);
-        } else {
-            intent.putExtra("playername", mGithubName.getText().toString());
-        }
+        intent.putExtra("playername", mCurrentPlayer);
         intent.putExtra("type", "following");
         startActivity(intent);
     }

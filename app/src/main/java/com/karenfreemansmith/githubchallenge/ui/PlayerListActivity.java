@@ -64,7 +64,7 @@ public class PlayerListActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                mPlayers=github.getPlayers(response);
+                mPlayers=github.getPlayerList(response);
                 PlayerListActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -34,7 +34,55 @@ public class GithubService {
         call.enqueue(cb);
     }
 
-    public ArrayList<Player> getPlayers(Response response) {
+    public static void getPlayer(String username, Callback cb) {
+        String githubUrl = "https://api.github.com/users/" + username;
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(githubUrl)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(cb);
+    }
+
+    public Player makePlayer(Response response) {
+        Player player = new Player();
+        try {
+            String jsonData = response.body().string();
+            if(response.isSuccessful()) {
+                JSONObject jsonPlayer = new JSONObject(jsonData);
+
+                player.setPlayerName(jsonPlayer.getString("login"));
+                player.setPlayerId(jsonPlayer.getInt("id"));
+                player.setPlayerRepos(jsonPlayer.getInt("public_repos"));
+                player.setPlayerGists(jsonPlayer.getInt("public_gists"));
+                player.setPlayerFollowers(jsonPlayer.getInt("followers"));
+                player.setPlayerFavorites(jsonPlayer.getInt("following"));
+                if(jsonPlayer.getString("bio") != null) {
+                    player.setPlayerBio(true);
+                }
+                if(jsonPlayer.getString("company") != null) {
+                    player.setPlayerCompany(true);
+                }
+                if(jsonPlayer.getString("blog") != null) {
+                    player.setPlayerBlog(true);
+                }
+                if(jsonPlayer.getString("location") != null) {
+                    player.setPlayerLocation(true);
+                }
+                if(jsonPlayer.getString("email") != null) {
+                    player.setPlayerEmail(true);
+                }
+
+            }
+        } catch(IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return player;
+    }
+
+    public ArrayList<Player> getPlayerList(Response response) {
         ArrayList<Player> players = new ArrayList<>();
 
         try{

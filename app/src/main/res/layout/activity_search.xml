@@ -34,7 +34,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Current Player"
+        android:text="Add Player to Battle"
         android:id="@+id/buttonSelectPlayer"
         android:layout_above="@+id/buttonFollowers"
         android:layout_centerHorizontal="true"
@@ -78,22 +78,5 @@
         android:textColor="@color/colorTextIcons"
         android:textSize="20sp"
         android:layout_marginBottom="10dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_above="@+id/buttonGithubSearch"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/editSearchGithubPlayer"
-        android:hint="Enter a Github username..."
-        android:textColor="@color/colorPrimaryText"
-        android:textColorHint="@color/colorDivider"
-        android:textAlignment="center"
-        android:background="#80000000"
-        android:textSize="18sp"
-        android:padding="10dp" />
 
 </RelativeLayout>

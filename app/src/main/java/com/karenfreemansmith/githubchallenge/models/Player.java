@@ -23,6 +23,9 @@ public class Player {
         mPlayerId = id;
     }
 
+    public Player () {
+    }
+
     public String getPlayerName() {
         return mPlayerName;
     }

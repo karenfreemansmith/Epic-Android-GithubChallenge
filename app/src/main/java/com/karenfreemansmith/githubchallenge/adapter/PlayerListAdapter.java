@@ -2,8 +2,11 @@ package com.karenfreemansmith.githubchallenge.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +14,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
 import com.karenfreemansmith.githubchallenge.models.Player;
+import com.karenfreemansmith.githubchallenge.ui.SearchActivity;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
@@ -26,6 +31,8 @@ import butterknife.ButterKnife;
  */
 
 public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.PlayerViewHolder> {
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
     private ArrayList<Player> mPlayers = new ArrayList<>();
     private Context mContext;
 
@@ -35,12 +42,9 @@ public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.P
     }
 
     public class PlayerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.playerAvatarImageView)
-        ImageView mPlayerImageView;
-        @Bind(R.id.playerNameText)
-        TextView mPlayerNameText;
-        @Bind(R.id.githubButton)
-        Button mGithubButton;
+        @Bind(R.id.playerAvatarImageView) ImageView mPlayerImageView;
+        @Bind(R.id.playerNameText) TextView mPlayerNameText;
+        @Bind(R.id.githubButton) Button mGithubButton;
         @Bind(R.id.addPlayerButton) Button mAddPlayerButton;
 
         private Context mContext;
@@ -49,6 +53,8 @@ public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.P
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext=itemView.getContext();
+            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            mEditor = mSharedPreferences.edit();
         }
 
         public void bindPlayer(Player player) {
@@ -66,7 +72,16 @@ public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.P
         public void onClick(View v){
             int position = getLayoutPosition();
             if(v == mAddPlayerButton) {
-                //TODO: add player to battle
+                String playerPosition = mSharedPreferences.getString(Constants.PLAYER_POSITION, null);
+                if(playerPosition.equals("1")) {
+                    mEditor.putString(Constants.PLAYER1_KEY, mPlayers.get(position).getPlayerName()).apply();
+                    mEditor.putString(Constants.PLAYER1_ID, String.valueOf(mPlayers.get(position).getPlayerId())).apply();
+                } else {
+                    mEditor.putString(Constants.PLAYER2_KEY, mPlayers.get(position).getPlayerName()).apply();
+                    mEditor.putString(Constants.PLAYER2_ID, String.valueOf(mPlayers.get(position).getPlayerId())).apply();
+                }
+                Intent intent = new Intent(mContext, SearchActivity.class);
+                mContext.startActivity(intent);
             }
             if (v == mGithubButton) {
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/" + mPlayers.get(position).getPlayerName()));
