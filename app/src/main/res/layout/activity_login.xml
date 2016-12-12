@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.karenfreemansmith.githubchallenge.ui.LoginActivity"
-    android:background="#000000">
+    android:background="@drawable/battle">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -14,14 +14,16 @@
         android:textColor="@color/colorSecondaryText"
         android:textSize="36sp"
         android:textAlignment="center"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="10dp"
+        android:background="#80000000"
+        android:paddingTop="120dp"
+        android:paddingBottom="30dp" />
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="#80000000"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:nextFocusDown="@+id/passwordEditText"
@@ -32,13 +34,14 @@
         android:layout_below="@+id/titleTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="#80000000"
         android:hint="Password"
         android:inputType="textPassword"
         android:nextFocusDown="@+id/buttonNewPlayer"
@@ -48,7 +51,8 @@
         android:textSize="20sp"
         android:layout_below="@+id/emailEditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textAlignment="center" />
 
     <Button
         android:layout_width="match_parent"

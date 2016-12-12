@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.karenfreemansmith.githubchallenge.ui.BattleActivity"
-    android:background="#000000">
+    android:background="@drawable/battle">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -14,14 +14,16 @@
         android:textColor="@color/colorSecondaryText"
         android:textSize="36sp"
         android:textAlignment="center"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentTop="false"
         android:layout_alignParentBottom="false"
         android:layout_alignParentStart="false"
         android:layout_alignParentRight="false"
         android:layout_alignParentLeft="false"
-        android:layout_alignParentEnd="false" />
+        android:layout_alignParentEnd="false"
+        android:background="#80000000"
+        android:paddingTop="120dp"
+        android:paddingBottom="30dp" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,7 +67,8 @@
         android:id="@+id/playerNameLayout"
         android:layout_below="@+id/titleTextView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="#80000000">
 
         <TextView
             android:text="Player 1"
@@ -75,7 +78,8 @@
             android:layout_weight="1"
             android:textColor="@color/colorDivider"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:padding="10dp" />
 
         <TextView
             android:text="Player 2"
@@ -85,6 +89,7 @@
             android:layout_weight="1"
             android:textSize="18sp"
             android:textColor="@color/colorDivider"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:padding="10dp" />
     </LinearLayout>
 </RelativeLayout>

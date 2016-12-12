@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.karenfreemansmith.githubchallenge.ui.BattleResultsActivity"
-    android:background="#000000">
+    android:background="@drawable/battle">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -14,8 +14,10 @@
         android:textColor="@color/colorSecondaryText"
         android:textSize="36sp"
         android:textAlignment="center"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="10dp"
+        android:background="#80000000"
+        android:paddingTop="120dp"
+        android:paddingBottom="30dp" />
 
     <Button
         android:layout_width="match_parent"
