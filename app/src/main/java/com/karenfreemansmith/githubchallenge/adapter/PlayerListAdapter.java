@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
 import com.karenfreemansmith.githubchallenge.models.Player;
+import com.karenfreemansmith.githubchallenge.ui.PlayerDetailActivity;
 import com.karenfreemansmith.githubchallenge.ui.SearchActivity;
 import com.squareup.picasso.Picasso;
 
@@ -44,8 +46,7 @@ public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.P
     public class PlayerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.playerAvatarImageView) ImageView mPlayerImageView;
         @Bind(R.id.playerNameText) TextView mPlayerNameText;
-        @Bind(R.id.githubButton) Button mGithubButton;
-        @Bind(R.id.addPlayerButton) Button mAddPlayerButton;
+        @Bind(R.id.viewPlayerButton) Button mViewPlayerButton;
 
         private Context mContext;
 
@@ -64,23 +65,16 @@ public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.P
                     .resize(150, 150)
                     .centerCrop()
                     .into(mPlayerImageView);
-            mGithubButton.setOnClickListener(this);
-            mAddPlayerButton.setOnClickListener(this);
+            mViewPlayerButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v){
             int position = getLayoutPosition();
-            if(v == mAddPlayerButton) {
-                String playerPosition = mSharedPreferences.getString(Constants.PLAYER_POSITION, null);
-                if(playerPosition.equals("1")) {
-                    mEditor.putString(Constants.PLAYER1_KEY, mPlayers.get(position).getPlayerName()).apply();
-                    mEditor.putString(Constants.PLAYER1_ID, String.valueOf(mPlayers.get(position).getPlayerId())).apply();
-                } else {
-                    mEditor.putString(Constants.PLAYER2_KEY, mPlayers.get(position).getPlayerName()).apply();
-                    mEditor.putString(Constants.PLAYER2_ID, String.valueOf(mPlayers.get(position).getPlayerId())).apply();
-                }
-                Intent intent = new Intent(mContext, SearchActivity.class);
+            if(v == mViewPlayerButton) {
+                Intent intent = new Intent(mContext, PlayerDetailActivity.class);
+                intent.putExtra("playername", mPlayers.get(position).getPlayerName());
+                intent.putExtra("playerid", String.valueOf(mPlayers.get(position).getPlayerId()));
                 mContext.startActivity(intent);
             }
         }
@@ -102,5 +96,4 @@ public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.P
     public int getItemCount() {
         return mPlayers.size();
     }
-
 }

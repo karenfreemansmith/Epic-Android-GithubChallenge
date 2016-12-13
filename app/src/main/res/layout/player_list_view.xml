@@ -38,32 +38,17 @@
                 android:textSize="24sp"
                 android:textColor="@color/colorDivider" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <Button
-                    android:text="View Github"
+                    android:text="View Player Details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/githubButton"
-                    android:layout_below="@+id/playerNameText"
-                    android:layout_toRightOf="@+id/playerAvatarImageView"
-                    android:layout_toEndOf="@+id/playerAvatarImageView"
-                    android:layout_weight="1"/>
-
-                <Button
-                    android:text="Select Player"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/addPlayerButton"
+                    android:id="@+id/viewPlayerButton"
                     android:layout_toRightOf="@+id/playerAvatarImageView"
                     android:layout_toEndOf="@+id/playerAvatarImageView"
                     android:layout_below="@+id/githubButton"
                     android:layout_weight="1"/>
 
-            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>

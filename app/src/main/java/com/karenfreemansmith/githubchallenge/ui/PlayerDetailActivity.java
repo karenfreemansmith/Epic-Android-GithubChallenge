@@ -3,15 +3,19 @@ package com.karenfreemansmith.githubchallenge.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.BinderThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,6 +23,8 @@ import butterknife.OnClick;
 
 public class PlayerDetailActivity extends AppCompatActivity {
     @Bind(R.id.titleTextView) TextView mTitle;
+    @Bind(R.id.playerImageView) ImageView mPlayerImage;
+
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String mPlayerName;
@@ -30,10 +36,19 @@ public class PlayerDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player_detail);
         ButterKnife.bind(this);
 
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
+
         Intent intent = getIntent();
         mPlayerName = intent.getStringExtra("playername");
         mPlayerId = intent.getStringExtra("playerid");
+
         mTitle.setText(mPlayerName);
+        Picasso.with(this)
+                .load("https://avatars.githubusercontent.com/u/"+mPlayerId+"?v=3")
+                .resize(100, 100)
+                .centerCrop()
+                .into(mPlayerImage);
     }
 
     @OnClick(R.id.buttonGithub)
