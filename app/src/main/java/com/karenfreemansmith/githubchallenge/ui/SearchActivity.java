@@ -14,11 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.support.v7.widget.SearchView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -31,8 +33,10 @@ public class SearchActivity extends AppCompatActivity {
     private SharedPreferences.Editor mEditor;
     private String mCurrentPlayer;
     private String mPlayerPosition;
+    private String mCurrentPlayerId;
 
     @Bind(R.id.titleTextView) TextView mTitle;
+    @Bind(R.id.playerImageView) ImageView mPlayerImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +48,17 @@ public class SearchActivity extends AppCompatActivity {
         mPlayerPosition = mSharedPreferences.getString(Constants.PLAYER_POSITION, null);
         if(mPlayerPosition.equals("1")) {
             mCurrentPlayer = mSharedPreferences.getString(Constants.PLAYER1_KEY, null);
-            mTitle.setText(mCurrentPlayer);
+            mCurrentPlayerId = mSharedPreferences.getString(Constants.PLAYER1_ID, null);
         } else {
             mCurrentPlayer = mSharedPreferences.getString(Constants.PLAYER2_KEY, null);
-            mTitle.setText(mCurrentPlayer);
+            mCurrentPlayerId = mSharedPreferences.getString(Constants.PLAYER2_ID, null);
         }
+        mTitle.setText(mCurrentPlayer);
+        Picasso.with(this)
+                .load("https://avatars.githubusercontent.com/u/"+mCurrentPlayerId+"?v=3")
+                .resize(100, 100)
+                .centerCrop()
+                .into(mPlayerImageView);
     }
 
     @Override
@@ -72,6 +82,11 @@ public class SearchActivity extends AppCompatActivity {
                     mCurrentPlayer="karenfreemansmith";
                 }
                 mTitle.setText(mCurrentPlayer);
+                Picasso.with(SearchActivity.this)
+                        .load("https://avatars.githubusercontent.com/u/"+1232456+"?v=3")
+                        .resize(100, 100)
+                        .centerCrop()
+                        .into(mPlayerImageView);
                 return false;
             }
 

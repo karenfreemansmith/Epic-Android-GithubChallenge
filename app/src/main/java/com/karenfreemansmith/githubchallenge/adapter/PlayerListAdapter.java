@@ -83,10 +83,6 @@ public class PlayerListAdapter  extends RecyclerView.Adapter<PlayerListAdapter.P
                 Intent intent = new Intent(mContext, SearchActivity.class);
                 mContext.startActivity(intent);
             }
-            if (v == mGithubButton) {
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/" + mPlayers.get(position).getPlayerName()));
-                mContext.startActivity(webIntent);
-            }
         }
     }
 
