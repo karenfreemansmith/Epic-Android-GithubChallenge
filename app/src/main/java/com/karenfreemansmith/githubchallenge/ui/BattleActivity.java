@@ -73,14 +73,15 @@ public class BattleActivity extends AppCompatActivity {
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
+
         GithubService github = new GithubService();
         // get username and userid from Github for current player
-        mCurrentPlayerId="12723198";
+
         mPlayer1Choice = mSharedPreferences.getString(Constants.PLAYER1_KEY, null);
         mPlayer1Id = mSharedPreferences.getString(Constants.PLAYER1_ID, null);
-        if(mPlayer1Choice.equals("null")) {
-            mPlayer1Choice = mCurrentPlayer;
-            mPlayer1Id = mCurrentPlayerId;
+        if(mPlayer1Choice == null) {
+            mPlayer1Choice = "wycats";
+            mPlayer1Id = "4";
         }
 
         mPlayerName1.setText(mPlayer1Choice);
@@ -92,9 +93,9 @@ public class BattleActivity extends AppCompatActivity {
 
         mPlayer2Choice = mSharedPreferences.getString(Constants.PLAYER2_KEY, null);
         mPlayer2Id = mSharedPreferences.getString(Constants.PLAYER2_ID, null);
-        if(mPlayer1Choice.equals("null")) {
-            mPlayer2Choice = mCurrentPlayer;
-            mPlayer2Id = mCurrentPlayerId;
+        if(mPlayer1Choice == null) {
+            mPlayer2Choice = "michaelrkn";
+            mPlayer2Id = "1266530";
         }
 
         mPlayerName2.setText(mPlayer2Choice);
