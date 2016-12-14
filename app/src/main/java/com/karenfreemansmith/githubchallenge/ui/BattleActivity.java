@@ -34,22 +34,21 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class BattleActivity extends AppCompatActivity {
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-
-    private String mCurrentPlayer;
-    private String mPlayer1Choice;
-    private String mPlayer2Choice;
-    private String mPlayer1Id;
-    private String mPlayer2Id;
-
     @Bind(R.id.titleTextView) TextView mTitle;
     @Bind(R.id.player1Textview) TextView mPlayerName1;
     @Bind(R.id.player2TextView) TextView mPlayerName2;
     @Bind(R.id.player1ImageView) ImageView mPlayer1ImageView;
     @Bind(R.id.player2ImageView) ImageView mPlayer2ImageView;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private String mCurrentPlayer;
+    private String mCurrentPlayerId;
+    private String mPlayer1Choice;
+    private String mPlayer2Choice;
+    private String mPlayer1Id;
+    private String mPlayer2Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,42 +62,48 @@ public class BattleActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null) {
-                    mTitle.setText("Welcome " + user.getDisplayName() + ", \nPick your Champions!");
+                    mCurrentPlayer = user.getDisplayName();
+                    mTitle.setText("Pick your Champions! \n" + mCurrentPlayer);
+
                 } else {
                     mTitle.setText("Let's Battle, \nPick your Champions!");
                 }
             }
         };
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
         GithubService github = new GithubService();
-
-        mCurrentPlayer = mSharedPreferences.getString(Constants.LOGGED_IN_PLAYER_KEY, "wycats");
+        // get username and userid from Github for current player
+        mCurrentPlayerId="12723198";
         mPlayer1Choice = mSharedPreferences.getString(Constants.PLAYER1_KEY, null);
-        mPlayer2Choice = mSharedPreferences.getString(Constants.PLAYER2_KEY, null);
         mPlayer1Id = mSharedPreferences.getString(Constants.PLAYER1_ID, null);
-        mPlayer2Id = mSharedPreferences.getString(Constants.PLAYER2_ID, null);
+        if(mPlayer1Choice.equals("null")) {
+            mPlayer1Choice = mCurrentPlayer;
+            mPlayer1Id = mCurrentPlayerId;
+        }
 
-        if(mPlayer1Choice != null) {
-            mPlayerName1.setText(mPlayer1Choice);
-            Picasso.with(this)
-                    .load("https://avatars.githubusercontent.com/u/"+mPlayer1Id+"?v=3")
-                    .resize(180, 180)
-                    .centerCrop()
-                    .into(mPlayer1ImageView);
-        } else {
-            mPlayerName1.setText(mCurrentPlayer);
+        mPlayerName1.setText(mPlayer1Choice);
+        Picasso.with(this)
+                .load("https://avatars.githubusercontent.com/u/"+mPlayer1Id+"?v=3")
+                .resize(180, 180)
+                .centerCrop()
+                .into(mPlayer1ImageView);
+
+        mPlayer2Choice = mSharedPreferences.getString(Constants.PLAYER2_KEY, null);
+        mPlayer2Id = mSharedPreferences.getString(Constants.PLAYER2_ID, null);
+        if(mPlayer1Choice.equals("null")) {
+            mPlayer2Choice = mCurrentPlayer;
+            mPlayer2Id = mCurrentPlayerId;
         }
-        if(mPlayer2Choice != null) {
-            mPlayerName2.setText(mPlayer2Choice);
-            Picasso.with(this)
-                    .load("https://avatars.githubusercontent.com/u/"+mPlayer2Id+"?v=3")
-                    .resize(180, 180)
-                    .centerCrop()
-                    .into(mPlayer2ImageView);
-        } else {
-            mPlayerName2.setText(mCurrentPlayer);
-        }
+
+        mPlayerName2.setText(mPlayer2Choice);
+        Picasso.with(this)
+                .load("https://avatars.githubusercontent.com/u/"+mPlayer2Id+"?v=3")
+                .resize(180, 180)
+                .centerCrop()
+                .into(mPlayer2ImageView);
+
     }
 
     @Override
