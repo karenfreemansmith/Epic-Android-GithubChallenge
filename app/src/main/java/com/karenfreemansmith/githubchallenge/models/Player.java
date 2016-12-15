@@ -1,121 +1,119 @@
 package com.karenfreemansmith.githubchallenge.models;
 
-import com.karenfreemansmith.githubchallenge.Constants;
-
 import java.util.Random;
 
 /**
  * Created by Guest on 12/9/16.
  */
 public class Player {
-    private String mPlayerName;
-    private int mPlayerId;
-    private int mPlayerRepos;
-    private int mPlayerFollowers;
-    private int mPlayerFavorites;
-    private int mPlayerGists;
-    private boolean mPlayerEmail;
-    private boolean mPlayerBlog;
-    private boolean mPlayerCompany;
-    private boolean mPlayerBio;
-    private boolean mPlayerLocation;
+    private String PlayerName;
+    private int PlayerId;
+    private int PlayerRepos;
+    private int PlayerFollowers;
+    private int PlayerFavorites;
+    private int PlayerGists;
+    private boolean PlayerEmail;
+    private boolean PlayerBlog;
+    private boolean PlayerCompany;
+    private boolean PlayerBio;
+    private boolean PlayerLocation;
 
 
 
     public Player(String name, int id) {
-        mPlayerName = name;
-        mPlayerId = id;
+        PlayerName = name;
+        PlayerId = id;
     }
 
     public Player () {
     }
 
     public String getPlayerName() {
-        return mPlayerName;
+        return PlayerName;
     }
 
     public void setPlayerName(String mPlayerName) {
-        this.mPlayerName = mPlayerName;
+        this.PlayerName = mPlayerName;
     }
 
     public int getPlayerId() {
-        return mPlayerId;
+        return PlayerId;
     }
 
     public void setPlayerId(int mPlayerId) {
-        this.mPlayerId = mPlayerId;
+        this.PlayerId = mPlayerId;
     }
 
     public int getPlayerRepos() {
-        return mPlayerRepos;
+        return PlayerRepos;
     }
 
     public void setPlayerRepos(int mPlayerRepos) {
-        this.mPlayerRepos = mPlayerRepos;
+        this.PlayerRepos = mPlayerRepos;
     }
 
     public int getPlayerFollowers() {
-        return mPlayerFollowers;
+        return PlayerFollowers;
     }
 
     public void setPlayerFollowers(int mPlayerFollowers) {
-        this.mPlayerFollowers = mPlayerFollowers;
+        this.PlayerFollowers = mPlayerFollowers;
     }
 
     public int getPlayerFavorites() {
-        return mPlayerFavorites;
+        return PlayerFavorites;
     }
 
     public void setPlayerFavorites(int mPlayerFavorites) {
-        this.mPlayerFavorites = mPlayerFavorites;
+        this.PlayerFavorites = mPlayerFavorites;
     }
 
     public int getPlayerGists() {
-        return mPlayerGists;
+        return PlayerGists;
     }
 
     public void setPlayerGists(int mPlayerGists) {
-        this.mPlayerGists = mPlayerGists;
+        this.PlayerGists = mPlayerGists;
     }
 
     public boolean isPlayerEmail() {
-        return mPlayerEmail;
+        return PlayerEmail;
     }
 
     public void setPlayerEmail(boolean mPlayerEmail) {
-        this.mPlayerEmail = mPlayerEmail;
+        this.PlayerEmail = mPlayerEmail;
     }
 
     public boolean isPlayerBlog() {
-        return mPlayerBlog;
+        return PlayerBlog;
     }
 
     public void setPlayerBlog(boolean mPlayerBlog) {
-        this.mPlayerBlog = mPlayerBlog;
+        this.PlayerBlog = mPlayerBlog;
     }
 
     public boolean isPlayerCompany() {
-        return mPlayerCompany;
+        return PlayerCompany;
     }
 
     public void setPlayerCompany(boolean mPlayerCompany) {
-        this.mPlayerCompany = mPlayerCompany;
+        this.PlayerCompany = mPlayerCompany;
     }
 
     public boolean isPlayerBio() {
-        return mPlayerBio;
+        return PlayerBio;
     }
 
     public void setPlayerBio(boolean mPlayerBio) {
-        this.mPlayerBio = mPlayerBio;
+        this.PlayerBio = mPlayerBio;
     }
 
     public boolean isPlayerLocation() {
-        return mPlayerLocation;
+        return PlayerLocation;
     }
 
     public void setPlayerLocation(boolean mPlayerLocation) {
-        this.mPlayerLocation = mPlayerLocation;
+        this.PlayerLocation = mPlayerLocation;
     }
 
     public static Player getRandomStarter() {

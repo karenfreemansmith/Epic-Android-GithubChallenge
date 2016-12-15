@@ -60,20 +60,29 @@ public class GithubService {
                 player.setPlayerFavorites(jsonPlayer.getInt("following"));
                 if(jsonPlayer.getString("bio") != null) {
                     player.setPlayerBio(true);
+                } else {
+                    player.setPlayerBio(false);
                 }
                 if(jsonPlayer.getString("company") != null) {
                     player.setPlayerCompany(true);
+                } else {
+                    player.setPlayerCompany(false);
                 }
                 if(jsonPlayer.getString("blog") != null) {
                     player.setPlayerBlog(true);
+                } else {
+                    player.setPlayerBlog(false);
                 }
                 if(jsonPlayer.getString("location") != null) {
                     player.setPlayerLocation(true);
+                } else {
+                    player.setPlayerLocation(false);
                 }
                 if(jsonPlayer.getString("email") != null) {
                     player.setPlayerEmail(true);
+                } else {
+                    player.setPlayerEmail(false);
                 }
-
             }
         } catch(IOException | JSONException e) {
             e.printStackTrace();

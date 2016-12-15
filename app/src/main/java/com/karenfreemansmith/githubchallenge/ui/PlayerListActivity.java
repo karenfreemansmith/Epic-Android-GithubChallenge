@@ -43,15 +43,15 @@ public class PlayerListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String playername = intent.getStringExtra("playername");
         String listType = intent.getStringExtra("type");
-        mTitle.setText(listType + ": " + playername);
+        if(listType.equals("following")) {
+            mTitle.setText(playername + " follows: ");
+        } else if(listType.equals("followers")) {
+            mTitle.setText("Who follows " + playername + "?");
+        } else if(listType.equals("favorites")) {
+            mTitle.setText("Your Saved Favorites");
+        }
 
         getPlayers(playername, listType);
-    }
-
-    @OnClick(R.id.buttonPlayerDetails)
-    public void showDetails(View v) {
-        Intent intent = new Intent(PlayerListActivity.this, PlayerDetailActivity.class);
-        startActivity(intent);
     }
 
     private void getPlayers(String username, String type) {

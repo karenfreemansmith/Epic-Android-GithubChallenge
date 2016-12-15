@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,13 +22,21 @@ import android.widget.Toast;
 
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
+import com.karenfreemansmith.githubchallenge.adapter.PlayerListAdapter;
+import com.karenfreemansmith.githubchallenge.models.Player;
+import com.karenfreemansmith.githubchallenge.services.GithubService;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class SearchActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
@@ -77,16 +87,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String s) {
-                mCurrentPlayer = s;
-                if(mCurrentPlayer == null) {
-                    mCurrentPlayer="karenfreemansmith";
-                }
-                mTitle.setText(mCurrentPlayer);
-                Picasso.with(SearchActivity.this)
-                        .load("https://avatars.githubusercontent.com/u/"+1232456+"?v=3")
-                        .resize(100, 100)
-                        .centerCrop()
-                        .into(mPlayerImageView);
+                getPlayer(s);
                 return false;
             }
 
@@ -104,16 +105,19 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.buttonGithubSearch)
+    @OnClick(R.id.buttonPlayerDetails)
     public void showPlayer(View v) {
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/" + mCurrentPlayer));
-        startActivity(webIntent);
+        Intent intent = new Intent(SearchActivity.this, PlayerDetailActivity.class);
+        intent.putExtra("playername", mCurrentPlayer);
+        intent.putExtra("playerid", mCurrentPlayerId);
+        startActivity(intent);
     }
 
     @OnClick(R.id.buttonSelectPlayer)
     public void pickPlayer(View v) {
         Intent intent = new Intent(SearchActivity.this, BattleActivity.class);
-        addPlayer(mCurrentPlayer, mPlayerPosition);
+        Player newPlayer = Player.getRandomStarter();
+        addPlayer(newPlayer.getPlayerName(), String.valueOf(newPlayer.getPlayerId()));
         startActivity(intent);
     }
 
@@ -141,11 +145,49 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void addPlayer(String playerName, String playerPosition) {
-        if(playerPosition.equals("1")) {
+    private void addPlayer(String playerName, String playerId) {
+        if(mPlayerPosition.equals("1")) {
             mEditor.putString(Constants.PLAYER1_KEY, playerName).apply();
+            mEditor.putString(Constants.PLAYER1_ID, playerId).apply();
         } else {
             mEditor.putString(Constants.PLAYER2_KEY, playerName).apply();
+            mEditor.putString(Constants.PLAYER2_ID, playerId).apply();
         }
+    }
+
+    private void getPlayer(String username) {
+        final GithubService github = new GithubService();
+        github.getPlayer(username,  new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final Player newPlayer = github.makePlayer(response);
+                mCurrentPlayer = newPlayer.getPlayerName();
+                mCurrentPlayerId = String.valueOf(newPlayer.getPlayerId());
+                if(mPlayerPosition.equals("1")) {
+                    mEditor.putString(Constants.PLAYER1_KEY, mCurrentPlayer).apply();
+                    mEditor.putString(Constants.PLAYER1_ID, mCurrentPlayerId).apply();
+                } else {
+                    mEditor.putString(Constants.PLAYER2_KEY, mCurrentPlayer).apply();
+                    mEditor.putString(Constants.PLAYER2_ID, mCurrentPlayerId).apply();
+                }
+                SearchActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTitle.setText(mCurrentPlayer);
+                        Picasso.with(SearchActivity.this)
+                            .load("https://avatars.githubusercontent.com/u/"+ mCurrentPlayerId +"?v=3")
+                            .resize(100, 100)
+                            .centerCrop()
+                            .into(mPlayerImageView);
+
+                    }
+                });
+            }
+        });
     }
 }
