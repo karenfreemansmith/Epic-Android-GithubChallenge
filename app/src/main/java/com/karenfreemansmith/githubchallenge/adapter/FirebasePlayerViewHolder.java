@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
   private static final int MAX_WIDTH = 200;
   private static final int MAX_HEIGHT = 200;
+  private String mPlayerName;
 
   View mView;
   Context mContext;
@@ -36,6 +37,7 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
     super(itemView);
     mView = itemView;
     mContext = itemView.getContext();
+    itemView.setOnClickListener(this);
   }
 
   public void bindPlayer(Player player) {
@@ -49,8 +51,9 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
         .centerCrop()
         .into(playerImageView);
 
-    nameTextView.setText(player.getPlayerName());
-    buttonView.setOnClickListener(this);
+    mPlayerName = player.getPlayerName();
+    nameTextView.setText(mPlayerName);
+    buttonView.setVisibility(View.GONE);
   }
 
   @Override
@@ -58,15 +61,18 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
     final ArrayList<Player> players = new ArrayList<>();
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PLAYER);
     ref.addListenerForSingleValueEvent(new ValueEventListener() {
+
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
         for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
           players.add(snapshot.getValue(Player.class));
         }
+
         int position = getLayoutPosition();
 
         Intent intent = new Intent(mContext, PlayerDetailActivity.class);
-        intent.putExtra("playername", players.get(position).getPlayerName());
+        intent.putExtra("playername", mPlayerName);
+
         mContext.startActivity(intent);
       }
 

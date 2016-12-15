@@ -17,12 +17,21 @@ public class Player {
     private boolean PlayerCompany;
     private boolean PlayerBio;
     private boolean PlayerLocation;
+    private String pushId;
 
 
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 
     public Player(String name, int id) {
         PlayerName = name;
         PlayerId = id;
+
     }
 
     public Player () {
@@ -119,9 +128,9 @@ public class Player {
     public static Player getRandomStarter() {
         Random randomGenerator = new Random();
         String[] names = {"wycats", "brianredbeard", "karenfreemansmith", "ejlaw01", "PerrySetGo", "dacravey",
-            "SummerBr", "mzphittstudios", "michaelkn", "mgoren", "ericelliott", "sajoy", "hdngr", "chalkers",
+            "SummerBr", "mzphittstudios", "michaelrkn", "mgoren", "ericelliott", "sajoy", "hdngr", "chalkers",
             "yqedan", "craigdennis", "Pyrrus", "benjakuben", "JKonTiki", "nickpettit", "jillkuchman",
-            "courtneyphillips", "jfranti", "jrjamespdx", "kdv24", "dianedouglass", "tcsuder", "ewajm",
+            "courtneyphillips", "jfranti", "jrjamespdx", "kdv24", "dianedouglas", "tcsuder", "ewajm",
             "eeronomicon", "helloapro"};
         int[] ids = {4, 57542, 6623141, 20765651, 11791430, 8962975, 12618246, 10455028, 1266530, 10257491,
             364727, 8292389, 1875033, 9805, 2849864, 8494909, 4381257, 794480, 20776648, 41124, 11277133,

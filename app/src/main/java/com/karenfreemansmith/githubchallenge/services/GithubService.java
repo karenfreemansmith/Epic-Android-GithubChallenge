@@ -24,7 +24,7 @@ import okhttp3.Response;
 public class GithubService {
 
     public static void getPlayers(String username, String type, Callback cb) {
-        String githubUrl = "https://api.github.com/users/" + username + "/" + type;
+        String githubUrl = "https://api.github.com/users/" + username + "/" + type + "?per_page=100";
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(githubUrl)

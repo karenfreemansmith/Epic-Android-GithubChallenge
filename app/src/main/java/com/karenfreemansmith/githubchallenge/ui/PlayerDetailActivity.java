@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.karenfreemansmith.githubchallenge.Constants;
@@ -76,11 +78,19 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonSavePlayer)
     public void savePlayer(View v) {
-        mDatabaseReference = FirebaseDatabase
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        DatabaseReference playerRef = FirebaseDatabase
             .getInstance()
-            .getReference()
-            .child(Constants.FIREBASE_CHILD_PLAYER);
-        mDatabaseReference.push().setValue(newPlayer);
+            .getReference(Constants.FIREBASE_CHILD_PLAYER)
+            .child(uid);
+
+        DatabaseReference pushRef = playerRef.push();
+        String pushId = pushRef.getKey();
+        newPlayer.setPushId(pushId);
+        pushRef.setValue(newPlayer);
+
         Toast.makeText(this, "Player Saved", Toast.LENGTH_SHORT).show();
 
     }

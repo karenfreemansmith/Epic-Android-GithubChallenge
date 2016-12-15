@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.karenfreemansmith.githubchallenge.Constants;
@@ -58,11 +60,16 @@ public class PlayerListActivity extends AppCompatActivity {
             getPlayers(playername, listType);
         } else if(listType.equals("favorites")) {
             mTitle.setText("Your Saved Favorites");
-            mPlayerReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PLAYER);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+
+            mPlayerReference = FirebaseDatabase
+                .getInstance()
+                .getReference(Constants.FIREBASE_CHILD_PLAYER)
+                .child(uid);
+
             setUpFirebaseAdapter();
         }
-
-
     }
 
     private void setUpFirebaseAdapter() {
@@ -77,12 +84,6 @@ public class PlayerListActivity extends AppCompatActivity {
         mPlayerListView.setHasFixedSize(true);
         mPlayerListView.setLayoutManager(new LinearLayoutManager(this));
         mPlayerListView.setAdapter(mFirebaseAdapter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFirebaseAdapter.cleanup();
     }
 
     private void getPlayers(String username, String type) {
