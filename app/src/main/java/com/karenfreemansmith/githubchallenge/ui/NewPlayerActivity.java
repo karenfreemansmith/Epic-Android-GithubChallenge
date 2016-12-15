@@ -151,6 +151,7 @@ public class NewPlayerActivity extends AppCompatActivity {
 
     private void addToSharedPreferences(String username) {
         mEditor.putString(Constants.LOGGED_IN_PLAYER_KEY, username).apply();
+        mEditor.putString(Constants.PLAYER_POSITION, "0").apply();
     }
 
     private boolean isValidEmail(String email) {

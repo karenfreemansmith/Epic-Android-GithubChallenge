@@ -60,51 +60,48 @@ public class BattleActivity extends AppCompatActivity {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null) {
-                    mCurrentPlayer = user.getDisplayName();
-                    mTitle.setText("Pick your Champions! \n" + mCurrentPlayer);
-
-                } else {
-                    mTitle.setText("Let's Battle, \nPick your Champions!");
-                }
+                mTitle.setText("Pick your Champions!");
             }
         };
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();
 
-        GithubService github = new GithubService();
-        // get username and userid from Github for current player
+        if (mSharedPreferences.getString(Constants.PLAYER_POSITION, null).equals("0")) {
+            Player player1 = Player.getRandomStarter();
+            mPlayer1Choice = player1.getPlayerName();
+            mPlayer1Id = String.valueOf(player1.getPlayerId());
+            mEditor.putString(Constants.PLAYER1_KEY, mPlayer1Choice).apply();
+            mEditor.putString(Constants.PLAYER1_ID, String.valueOf(mPlayer1Id)).apply();
 
-        mPlayer1Choice = mSharedPreferences.getString(Constants.PLAYER1_KEY, null);
-        mPlayer1Id = mSharedPreferences.getString(Constants.PLAYER1_ID, null);
-        if(mPlayer1Choice == null) {
-            mPlayer1Choice = "wycats";
-            mPlayer1Id = "4";
+        } else {
+            mPlayer1Choice = mSharedPreferences.getString(Constants.PLAYER1_KEY, null);
+            mPlayer1Id = mSharedPreferences.getString(Constants.PLAYER1_ID, null);
         }
-
         mPlayerName1.setText(mPlayer1Choice);
         Picasso.with(this)
-                .load("https://avatars.githubusercontent.com/u/"+mPlayer1Id+"?v=3")
-                .resize(180, 180)
-                .centerCrop()
-                .into(mPlayer1ImageView);
+            .load("https://avatars.githubusercontent.com/u/" + mPlayer1Id + "?v=3")
+            .resize(150, 150)
+            .centerCrop()
+            .into(mPlayer1ImageView);
 
-        mPlayer2Choice = mSharedPreferences.getString(Constants.PLAYER2_KEY, null);
-        mPlayer2Id = mSharedPreferences.getString(Constants.PLAYER2_ID, null);
-        if(mPlayer1Choice == null) {
-            mPlayer2Choice = "michaelrkn";
-            mPlayer2Id = "1266530";
+        if(mSharedPreferences.getString(Constants.PLAYER_POSITION, null).equals("0")) {
+            Player player2 = Player.getRandomStarter();
+            mPlayer2Choice = player2.getPlayerName();
+            mPlayer2Id = String.valueOf(player2.getPlayerId());
+            mEditor.putString(Constants.PLAYER2_KEY, mPlayer2Choice).apply();
+            mEditor.putString(Constants.PLAYER2_ID, String.valueOf(mPlayer2Id)).apply();
+        } else {
+            mPlayer2Choice = mSharedPreferences.getString(Constants.PLAYER2_KEY, null);
+            mPlayer2Id = mSharedPreferences.getString(Constants.PLAYER2_ID, null);
         }
 
         mPlayerName2.setText(mPlayer2Choice);
         Picasso.with(this)
                 .load("https://avatars.githubusercontent.com/u/"+mPlayer2Id+"?v=3")
-                .resize(180, 180)
+                .resize(150, 150)
                 .centerCrop()
                 .into(mPlayer2ImageView);
-
     }
 
     @Override

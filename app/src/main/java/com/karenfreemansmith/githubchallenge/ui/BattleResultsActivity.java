@@ -22,6 +22,7 @@ import butterknife.OnClick;
 
 public class BattleResultsActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
     private String mPlayerId;
 
     @Bind(R.id.winnerImageView) ImageView mWinner;
@@ -33,14 +34,16 @@ public class BattleResultsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
-        Random randomGenerator = new Random();
-        int winner = randomGenerator.nextInt(2)+1;
-
-        if(winner == 1) {
-            mPlayerId = mSharedPreferences.getString(Constants.PLAYER1_ID, null);
+        int playerId1 = Integer.parseInt(mSharedPreferences.getString(Constants.PLAYER1_ID, null));
+        int playerId2 = Integer.parseInt(mSharedPreferences.getString(Constants.PLAYER2_ID, null));
+        if(playerId1<playerId2) {
+            mPlayerId = playerId1 + "";
+            mEditor.putString(Constants.PLAYER_POSITION, "1").apply();
         } else {
-            mPlayerId = mSharedPreferences.getString(Constants.PLAYER2_ID, null);
+            mPlayerId = playerId2 + "";
+            mEditor.putString(Constants.PLAYER_POSITION, "2").apply();
         }
         Picasso.with(this)
                 .load("https://avatars.githubusercontent.com/u/"+mPlayerId+"?v=3")

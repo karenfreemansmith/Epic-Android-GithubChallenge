@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
 import com.squareup.picasso.Picasso;
@@ -27,6 +28,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
+    private DatabaseReference mDatabaseReference;
     private String mPlayerName;
     private String mPlayerId;
 
@@ -43,7 +45,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
         mPlayerName = intent.getStringExtra("playername");
         mPlayerId = intent.getStringExtra("playerid");
 
-        mTitle.setText(mPlayerName);
+        mTitle.setText(mPlayerName + ": " + mPlayerId);
         Picasso.with(this)
                 .load("https://avatars.githubusercontent.com/u/"+mPlayerId+"?v=3")
                 .resize(100, 100)
@@ -73,6 +75,9 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.buttonSavePlayer)
     public void savePlayer(View v) {
+        // saving data from this activity to firebase...
+        mDatabaseReference.setValue(mPlayerName);
         Toast.makeText(this, "Player Saved", Toast.LENGTH_SHORT).show();
+
     }
 }

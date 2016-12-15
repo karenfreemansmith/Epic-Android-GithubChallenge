@@ -79,7 +79,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="150dp"
                 app:srcCompat="@drawable/jill"
                 android:id="@+id/player1ImageView"
                 android:layout_weight="1"
@@ -105,7 +105,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="150dp"
                 app:srcCompat="@drawable/perry"
                 android:id="@+id/player2ImageView"
                 android:layout_weight="1"
