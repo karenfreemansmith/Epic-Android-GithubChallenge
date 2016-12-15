@@ -49,7 +49,6 @@
                     android:layout_below="@+id/githubButton"
                     android:layout_weight="1"/>
 
-
         </LinearLayout>
     </LinearLayout>
 

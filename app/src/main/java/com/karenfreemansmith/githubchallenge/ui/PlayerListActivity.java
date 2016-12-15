@@ -8,7 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
+import com.karenfreemansmith.githubchallenge.adapter.FirebasePlayerViewHolder;
 import com.karenfreemansmith.githubchallenge.adapter.PlayerListAdapter;
 import com.karenfreemansmith.githubchallenge.models.Player;
 import com.karenfreemansmith.githubchallenge.services.GithubService;
@@ -28,6 +33,8 @@ import okhttp3.Response;
 public class PlayerListActivity extends AppCompatActivity {
     private static final String TAG = PlayerListActivity.class.getSimpleName();
     private PlayerListAdapter mAdapter;
+    private DatabaseReference mPlayerReference;
+    private FirebaseRecyclerAdapter mFirebaseAdapter;
 
     @Bind(R.id.titleTextView) TextView mTitle;
     @Bind(R.id.recyclerView) RecyclerView mPlayerListView;
@@ -45,13 +52,37 @@ public class PlayerListActivity extends AppCompatActivity {
         String listType = intent.getStringExtra("type");
         if(listType.equals("following")) {
             mTitle.setText(playername + " follows: ");
+            getPlayers(playername, listType);
         } else if(listType.equals("followers")) {
             mTitle.setText("Who follows " + playername + "?");
+            getPlayers(playername, listType);
         } else if(listType.equals("favorites")) {
             mTitle.setText("Your Saved Favorites");
+            mPlayerReference = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PLAYER);
+            setUpFirebaseAdapter();
         }
 
-        getPlayers(playername, listType);
+
+    }
+
+    private void setUpFirebaseAdapter() {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<Player, FirebasePlayerViewHolder>
+            (Player.class, R.layout.player_list_view, FirebasePlayerViewHolder.class,
+                mPlayerReference){
+            @Override
+            protected void populateViewHolder(FirebasePlayerViewHolder viewHolder, Player model, int position) {
+                viewHolder.bindPlayer(model);
+            }
+        };
+        mPlayerListView.setHasFixedSize(true);
+        mPlayerListView.setLayoutManager(new LinearLayoutManager(this));
+        mPlayerListView.setAdapter(mFirebaseAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
     }
 
     private void getPlayers(String username, String type) {

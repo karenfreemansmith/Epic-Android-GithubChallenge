@@ -1,5 +1,6 @@
 package com.karenfreemansmith.githubchallenge.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
+    private ProgressDialog mAuthProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-
+        createAuthProgressDialog();
     }
 
     @OnClick(R.id.buttonLogin)
@@ -76,15 +78,14 @@ public class LoginActivity extends AppCompatActivity {
             mPassword.setError("Please enter your password...");
             return;
         }
-
-        //add progress dialog as desired...
+        mAuthProgressDialog.show();
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        //dismiss progress dialog...
+                        mAuthProgressDialog.dismiss();
 
                         if (!task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
@@ -94,6 +95,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticacting with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
 
     @Override
