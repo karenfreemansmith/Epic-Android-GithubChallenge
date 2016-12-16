@@ -26,7 +26,7 @@
         android:id="@+id/buttonPlayerDetails"
         android:layout_above="@+id/buttonFollowers"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="#de333333"
         android:textColor="@color/colorTextIcons"
         android:textSize="20sp"
         android:layout_marginBottom="10dp" />
@@ -38,7 +38,7 @@
         android:id="@+id/buttonFollowers"
         android:layout_above="@+id/buttonFollowing"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="#de333333"
         android:textColor="@color/colorTextIcons"
         android:textSize="20sp"
         android:layout_marginBottom="10dp" />
@@ -50,7 +50,7 @@
         android:id="@+id/buttonFollowing"
         android:layout_above="@+id/buttonFavoritePlayers"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="#de333333"
         android:textColor="@color/colorTextIcons"
         android:textSize="20sp"
         android:layout_marginBottom="10dp" />
@@ -62,7 +62,7 @@
         android:id="@+id/buttonFavoritePlayers"
         android:layout_above="@+id/buttonSelectPlayer"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="#de333333"
         android:textColor="@color/colorTextIcons"
         android:textSize="20sp"
         android:layout_marginBottom="10dp" />
@@ -74,7 +74,7 @@
         android:id="@+id/buttonSelectPlayer"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary"
+        android:background="#de333333"
         android:textColor="@color/colorTextIcons"
         android:textSize="20sp"
         android:layout_marginBottom="10dp" />

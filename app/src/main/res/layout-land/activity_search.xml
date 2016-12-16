@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.karenfreemansmith.githubchallenge.ui.SearchActivity"
+    android:background="@drawable/battle"
+    android:weightSum="100">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="50">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Player Name"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="36sp"
+            android:textAlignment="center"
+            android:layout_marginBottom="10dp"
+            android:background="#80000000"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true" />
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:id="@+id/playerImageView"
+            android:src="@drawable/mike"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="50">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Player Details"
+            android:id="@+id/buttonPlayerDetails"
+            android:layout_above="@+id/buttonFollowers"
+            android:layout_centerHorizontal="true"
+            android:background="#de333333"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Following Player"
+            android:id="@+id/buttonFollowers"
+            android:layout_above="@+id/buttonFollowing"
+            android:layout_centerHorizontal="true"
+            android:background="#de333333"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Player Follows"
+            android:id="@+id/buttonFollowing"
+            android:layout_above="@+id/buttonFavoritePlayers"
+            android:layout_centerHorizontal="true"
+            android:background="#de333333"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Saved Favorites"
+            android:id="@+id/buttonFavoritePlayers"
+            android:layout_above="@+id/buttonSelectPlayer"
+            android:layout_centerHorizontal="true"
+            android:background="#de333333"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Random Player"
+            android:id="@+id/buttonSelectPlayer"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="#de333333"
+            android:textColor="@color/colorTextIcons"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
