@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,10 +16,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
+import com.karenfreemansmith.githubchallenge.adapter.FirebasePlayerListAdapter;
 import com.karenfreemansmith.githubchallenge.adapter.FirebasePlayerViewHolder;
 import com.karenfreemansmith.githubchallenge.adapter.PlayerListAdapter;
 import com.karenfreemansmith.githubchallenge.models.Player;
 import com.karenfreemansmith.githubchallenge.services.GithubService;
+import com.karenfreemansmith.githubchallenge.util.ItemTouchHelperAdapter;
+import com.karenfreemansmith.githubchallenge.util.OnStartDragListener;
+import com.karenfreemansmith.githubchallenge.util.SimpleItemTouchHelperCallback;
 
 
 import java.io.IOException;
@@ -32,11 +37,12 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 
-public class PlayerListActivity extends AppCompatActivity {
+public class PlayerListActivity extends AppCompatActivity implements OnStartDragListener {
     private static final String TAG = PlayerListActivity.class.getSimpleName();
     private PlayerListAdapter mAdapter;
     private DatabaseReference mPlayerReference;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private FirebasePlayerListAdapter mFirebaseAdapter;
+    private ItemTouchHelper mItemTouchHelper;
 
     @Bind(R.id.titleTextView) TextView mTitle;
     @Bind(R.id.recyclerView) RecyclerView mPlayerListView;
@@ -73,9 +79,8 @@ public class PlayerListActivity extends AppCompatActivity {
     }
 
     private void setUpFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Player, FirebasePlayerViewHolder>
-            (Player.class, R.layout.player_list_view, FirebasePlayerViewHolder.class,
-                mPlayerReference){
+        mFirebaseAdapter = new FirebasePlayerListAdapter(Player.class, R.layout.drag_player_item, FirebasePlayerViewHolder.class,
+                mPlayerReference, this, this){
             @Override
             protected void populateViewHolder(FirebasePlayerViewHolder viewHolder, Player model, int position) {
                 viewHolder.bindPlayer(model);
@@ -84,6 +89,9 @@ public class PlayerListActivity extends AppCompatActivity {
         mPlayerListView.setHasFixedSize(true);
         mPlayerListView.setLayoutManager(new LinearLayoutManager(this));
         mPlayerListView.setAdapter(mFirebaseAdapter);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
+
     }
 
     private void getPlayers(String username, String type) {
@@ -109,5 +117,16 @@ public class PlayerListActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        mItemTouchHelper.startDrag(viewHolder);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseAdapter.cleanup();
     }
 }

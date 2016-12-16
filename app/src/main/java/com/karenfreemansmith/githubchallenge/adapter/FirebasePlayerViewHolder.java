@@ -30,6 +30,8 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
   private static final int MAX_HEIGHT = 200;
   private String mPlayerName;
 
+  public ImageView mPlayerImageView;
+
   View mView;
   Context mContext;
 
@@ -41,7 +43,7 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
   }
 
   public void bindPlayer(Player player) {
-    ImageView playerImageView = (ImageView) mView.findViewById(R.id.playerAvatarImageView);
+    mPlayerImageView = (ImageView) mView.findViewById(R.id.playerAvatarImageView);
     TextView nameTextView = (TextView) mView.findViewById(R.id.playerNameText);
     Button buttonView = (Button) mView.findViewById(R.id.viewPlayerButton);
 
@@ -49,7 +51,7 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
         .load("https://avatars.githubusercontent.com/u/"+ player.getPlayerId() +"?v=3")
         .resize(MAX_WIDTH, MAX_HEIGHT)
         .centerCrop()
-        .into(playerImageView);
+        .into(mPlayerImageView);
 
     mPlayerName = player.getPlayerName();
     nameTextView.setText(mPlayerName);
