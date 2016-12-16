@@ -134,4 +134,5 @@ public class PlayerListActivity extends AppCompatActivity implements OnStartDrag
         super.onDestroy();
         mFirebaseAdapter.cleanup();
     }
+
 }

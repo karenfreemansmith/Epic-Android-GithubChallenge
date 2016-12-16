@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * Created by Karen Freeman-Smith on 12/14/2016.
  */
 
-public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
+public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ItemTouchHelperViewHolder {
   private static final int MAX_WIDTH = 200;
   private static final int MAX_HEIGHT = 200;
   private String mPlayerName;
@@ -39,6 +39,7 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
     super(itemView);
     mView = itemView;
     mContext = itemView.getContext();
+    itemView.setOnClickListener(this);
   }
 
   public void bindPlayer(Player player) {
@@ -57,6 +58,32 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
     buttonView.setVisibility(View.GONE);
   }
 
+  @Override
+  public void onClick(View view) {
+    final ArrayList<Player> players = new ArrayList<>();
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_PLAYER);
+    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
+          players.add(snapshot.getValue(Player.class));
+        }
+
+        int position = getLayoutPosition();
+
+        Intent intent = new Intent(mContext, PlayerDetailActivity.class);
+        intent.putExtra("playername", mPlayerName);
+
+        mContext.startActivity(intent);
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+      }
+    });
+
+  }
 
   @Override
   public void onItemSelected() {

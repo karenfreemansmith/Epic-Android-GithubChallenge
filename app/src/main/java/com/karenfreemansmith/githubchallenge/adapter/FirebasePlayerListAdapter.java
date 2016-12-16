@@ -70,6 +70,7 @@ public class FirebasePlayerListAdapter extends FirebaseRecyclerAdapter<Player, F
     @Override
     protected void populateViewHolder(final FirebasePlayerViewHolder viewHolder, Player model, int position) {
         viewHolder.bindPlayer(model);
+
         viewHolder.mPlayerImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -77,17 +78,6 @@ public class FirebasePlayerListAdapter extends FirebaseRecyclerAdapter<Player, F
                     mStartDragListener.onStartDrag(viewHolder);
                 }
                 return false;
-            }
-        });
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                int position = viewHolder.getAdapterPosition();
-                Intent intent = new Intent(mContext, PlayerDetailActivity.class);
-                intent.putExtra("playername", mPlayers.get(position).getPlayerName());
-                intent.putExtra("playerid", String.valueOf(mPlayers.get(position).getPlayerId()));
-                mContext.startActivity(intent);
             }
         });
     }
