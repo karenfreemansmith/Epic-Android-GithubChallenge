@@ -11,4 +11,5 @@ public class Constants {
     public static final String PLAYER2_ID = "player2id";
     public static final String PLAYER_POSITION = "position";
     public static final String FIREBASE_CHILD_PLAYER = "players";
+    public static final String FIREBASE_QUERY_INDEX = "index";
 }

@@ -19,6 +19,21 @@ public class Player {
     private boolean PlayerLocation;
     private String pushId;
 
+    String index;
+
+    public Player(String name, int id) {
+        PlayerName = name;
+        PlayerId = id;
+
+    }
+
+    public Player () {
+        this.index = "not_specified";
+    }
+
+    public String getIndex() {
+        return index;
+    }
 
     public String getPushId() {
         return pushId;
@@ -28,15 +43,9 @@ public class Player {
         this.pushId = pushId;
     }
 
-    public Player(String name, int id) {
-        PlayerName = name;
-        PlayerId = id;
-
+    public void setIndex(String index) {
+        this.index = index;
     }
-
-    public Player () {
-    }
-
     public String getPlayerName() {
         return PlayerName;
     }

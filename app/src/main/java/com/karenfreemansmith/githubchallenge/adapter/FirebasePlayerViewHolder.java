@@ -31,7 +31,6 @@ public class FirebasePlayerViewHolder extends RecyclerView.ViewHolder implements
   private String mPlayerName;
 
   public ImageView mPlayerImageView;
-
   View mView;
   Context mContext;
 

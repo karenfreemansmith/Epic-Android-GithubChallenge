@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.karenfreemansmith.githubchallenge.Constants;
 import com.karenfreemansmith.githubchallenge.R;
 import com.karenfreemansmith.githubchallenge.adapter.FirebasePlayerListAdapter;
@@ -69,10 +70,12 @@ public class PlayerListActivity extends AppCompatActivity implements OnStartDrag
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
 
+            //Query query = FirebaseDatabase
             mPlayerReference = FirebaseDatabase
-                .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_PLAYER)
-                .child(uid);
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_PLAYER)
+                    .child(uid);
+                    //.orderByChild(Constants.FIREBASE_QUERY_INDEX);
 
             setUpFirebaseAdapter();
         }

@@ -105,4 +105,20 @@ public class FirebasePlayerListAdapter extends FirebaseRecyclerAdapter<Player, F
         getRef(position).removeValue();
 
     }
+
+    private void setIndexInFirebase() {
+        for (Player player : mPlayers) {
+            int index = mPlayers.indexOf(player);
+            DatabaseReference ref = getRef(index);
+            player.setIndex(Integer.toString(index));
+            ref.setValue(player);
+        }
+    }
+
+    @Override
+    public void cleanup() {
+        super.cleanup();
+        setIndexInFirebase();
+        mRef.removeEventListener(mChildEventListener);
+    }
 }
