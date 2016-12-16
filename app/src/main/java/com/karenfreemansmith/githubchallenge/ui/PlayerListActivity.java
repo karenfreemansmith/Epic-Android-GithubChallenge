@@ -91,6 +91,8 @@ public class PlayerListActivity extends AppCompatActivity implements OnStartDrag
         mPlayerListView.setAdapter(mFirebaseAdapter);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mPlayerListView);
 
     }
 
