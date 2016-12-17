@@ -5,6 +5,8 @@ by [Karen Freeman-Smith](https://karenfreemansmith.github.io)
 ## Description
 This app will allow you to pick two players from the people you are following on Github to "battle". It will check and score their Github statistics and show you who is the "winner".
 
+![project screenshot](screenshot.png)
+
 ## Known Issues
 * Not calculating winner of battles yet.
 * Needs form validation/dialog added.
