@@ -1,5 +1,5 @@
 # Github Challenge
-version 0.0.1 December 11, 2016
+version 0.0.1 December 16, 2016
 by [Karen Freeman-Smith](https://karenfreemansmith.github.io)
 
 ## Description
@@ -8,9 +8,9 @@ This app will allow you to pick two players from the people you are following on
 ![project screenshot](screenshot.png)
 
 ## Known Issues
-* Not calculating winner of battles yet.
-* Needs form validation/dialog added.
-* Needs to save something to database, possibly favorite players.
+* Occassionally crashes when you go back a screen, may be saved state issue on listviews?
+* Also crashes sometimes on logout
+* Could improve logic for "winning" battles
 
 ## Legal
 *Licensed under the GNU General Public License v3.0*
