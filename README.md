@@ -2,10 +2,10 @@
 version 0.0.1 December 16, 2016
 by [Karen Freeman-Smith](https://karenfreemansmith.github.io)
 
-## Description
-This app will allow you to pick two players from the people you are following on Github to "battle". It will check and score their Github statistics and show you who is the "winner".
-
 ![project screenshot](screenshot.png)
+
+## Description
+Individual Project for Android at Epicodus. This app lets you search Github to find your champions and then battle them based on their Github statistics.
 
 ## Known Issues
 * Occassionally crashes when you go back a screen, may be saved state issue on listviews?
