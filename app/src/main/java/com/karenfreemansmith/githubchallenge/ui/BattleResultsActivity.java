@@ -2,6 +2,7 @@ package com.karenfreemansmith.githubchallenge.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class BattleResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_battle_results);
         ButterKnife.bind(this);
+
+        StrictMode.enableDefaults();
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mSharedPreferences.edit();

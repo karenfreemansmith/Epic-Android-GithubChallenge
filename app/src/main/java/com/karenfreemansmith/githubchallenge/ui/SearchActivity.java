@@ -3,6 +3,7 @@ package com.karenfreemansmith.githubchallenge.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,8 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        StrictMode.enableDefaults();
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mPlayerPosition = mSharedPreferences.getString(Constants.PLAYER_POSITION, null);

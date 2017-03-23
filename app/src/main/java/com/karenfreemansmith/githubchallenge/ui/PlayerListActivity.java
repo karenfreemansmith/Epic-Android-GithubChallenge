@@ -1,6 +1,7 @@
 package com.karenfreemansmith.githubchallenge.ui;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,6 +56,8 @@ public class PlayerListActivity extends AppCompatActivity implements OnStartDrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_list);
         ButterKnife.bind(this);
+
+        StrictMode.enableDefaults();
 
         Intent intent = getIntent();
         String playername = intent.getStringExtra("playername");
